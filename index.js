@@ -1,38 +1,34 @@
 const gateway = require("fast-gateway");
 const port = 9001;
-import SuperTokens from 'supertokens-web-js';
-import Session from 'supertokens-web-js/recipe/session';
-import EmailPassword from 'supertokens-web-js/recipe/emailpassword' 
 
 const server = gateway({
     routes: [
         {
-            prefix: "/autenticacion",
-            target: "",
-            hooks: {}
-        },
-        {
-            prefix: "/agendarCitas",
-            target: "",
-            hooks: {}
+            prefix: "/auth",
+            target: "http://localhost:8001",
+            hooks: {
+                onRequest: (req, res) => {
+                    console.log("Solicitud para autenticacion: " + req.url);
+                }
+            }
+        }
+    ],
+    middlewares: [
+        (req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            if (req.method === 'OPTIONS') {
+                res.writeHead(200);
+                return res.end();
+            }
+            next();
         }
     ]
 })
 
-SuperTokens.init({
-    appInfo: {
-        apiDomain: "",
-        apiBasePath: "/auth",
-        appName: "Proyecto_microservicios",
-    },
-    recipeList: [
-        Session.init(),
-        EmailPassword.init(),
-    ],
-});
-
 server.start(port).then(server => {
-    console.log("Gateway ejecutandose en el puerto: http://localhost:" + port);
+    console.log("Gateway ejecutandose en el puerto: " + port);
 })
 
 
