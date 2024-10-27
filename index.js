@@ -5,7 +5,7 @@ const server = gateway({
     routes: [
         {
             prefix: "/auth",
-            target: "https://microservicioauth.onrender.com/authentication/signUp",
+            target: "https://microservicioauth.onrender.com/authentication",
             hooks: {
                 onRequest: (req, res) => {
                     console.log("Solicitud para autenticacion: " + req.url);
