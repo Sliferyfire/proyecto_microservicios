@@ -5,10 +5,19 @@ const server = gateway({
     routes: [
         {
             prefix: "/auth",
-            target: "http://localhost:8001",
+            target: "https://microservicioauth.onrender.com/authentication/signUp",
             hooks: {
                 onRequest: (req, res) => {
                     console.log("Solicitud para autenticacion: " + req.url);
+                }
+            }
+        },
+        {
+            prefix: "/agendar",
+            target: "http://localhost:8002",
+            hooks: {
+                onRequest: (req, res) => {
+                    console.log("Solicitud para agendar cita: " + req.url);
                 }
             }
         }
