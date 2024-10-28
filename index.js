@@ -14,7 +14,7 @@ const server = gateway({
         },
         {
             prefix: "/agendar",
-            target: "http://localhost:8002",
+            target: "https://crud-microservicio.onrender.com",
             hooks: {
                 onRequest: (req, res) => {
                     console.log("Solicitud para agendar cita: " + req.url);
