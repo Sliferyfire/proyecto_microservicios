@@ -4,7 +4,7 @@ const port = 9001;
 const server = gateway({
     routes: [
         {
-            prefix: "/authentication",
+            prefix: "/auth",
             target: "https://microservicioauth.onrender.com",
             hooks: {
                 onRequest: (req, res) => {
